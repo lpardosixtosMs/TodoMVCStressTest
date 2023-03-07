@@ -3,6 +3,6 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": ["./apps/*/just.config.ts", "./packages/**/just.config.ts"],
+  "include": ["./apps/*/just.config.ts", "./packages/**/just.config.ts", "./apps/stress-test/extra_types"],
   "files": ["./typings/find-free-port/index.d.ts"]
 }

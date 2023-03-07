@@ -9,14 +9,14 @@ import glob from 'glob';
 type BuildTreeFixture = (name: string, options: { [key: string]: string }) => void;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TreeJsonReplacer = (key: string, value: any) => any;
-type DefaultFixture = 'xs_1' | 'xs_2' | 's_1' | 's_2' | 'm_1' | 'm_2' | 'l_1' | 'l_2' | 'xl_1' | 'xl_2';
+type DefaultFixture = 'xs_1' | 'xs_2' | 's_1' | 's_2' | 'm_1' | 'm_2' | 'l_1' | 'l_2' | 'xl_1' | 'xl_2' | 'test';
 type DefaultFixtureOptions = {
   [fixtureName in DefaultFixture]: {
     [option: string]: string;
   };
 };
 
-const defaultFixtures = ['xs_1', 'xs_2', 's_1', 's_2', 'm_1', 'm_2', 'l_1', 'l_2', 'xl_1', 'xl_2'];
+const defaultFixtures = ['xs_1', 'xs_2', 's_1', 's_2', 'm_1', 'm_2', 'l_1', 'l_2', 'xl_1', 'xl_2', 'test'];
 const defaultFixtureOptions: DefaultFixtureOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   xs_1: {
@@ -101,6 +101,15 @@ const defaultFixtureOptions: DefaultFixtureOptions = {
     minDepth: '16',
     maxDepth: '80',
     targetSize: '4000',
+    seed: '7032017',
+  },
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  test: {
+    minBreadth: '1',
+    maxBreadth: '1',
+    minDepth: '1',
+    maxDepth: '1',
+    targetSize: '1',
     seed: '7032017',
   },
 };

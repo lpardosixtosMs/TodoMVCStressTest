@@ -8,4 +8,4 @@ const { workspaceRoot } = require('@nrwl/devkit');
 
 registerTsProject(workspaceRoot, 'tsconfig.base.json');
 
-module.exports = require('./index.ts');
+module.exports = require('./index');

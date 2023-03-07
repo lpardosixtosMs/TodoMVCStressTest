@@ -1,6 +1,7 @@
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import * as Dotenv from 'dotenv-webpack';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { registerTsPaths, createPathAliasesConfig, rules } from '@fluentui/scripts-storybook';
 import { configurePages } from './pageConfig.js';
@@ -72,7 +73,7 @@ const createConfig: WebpackConfigurationCreator = (_env, argv) => {
         },
       ],
     },
-    plugins: [new CleanWebpackPlugin()],
+    plugins: [new CleanWebpackPlugin(), new Dotenv()],
 
     optimization: {
       minimize: isProd,
