@@ -467,12 +467,12 @@ class TodoApp extends React.Component<AppProps, AppState> {
           <input
             className="new-todo"
             placeholder="What needs to be done?"
-            value={'new TODO'}
-            // value={this.state.newTodo}
-            onKeyDown={() => {}}
-            // onKeyDown={this.handleNewTodoKeyDown}
-            onChange={() => {}}
-            // onChange={this.handleChange}
+            // value={'new TODO'}
+            value={this.state.newTodo}
+            // onKeyDown={() => {}}
+            onKeyDown={this.handleNewTodoKeyDown}
+            // onChange={() => {}}
+            onChange={this.handleChange}
             autoFocus={true}
           />
         </header>
@@ -491,9 +491,16 @@ class TestButton extends React.Component {
   }
 }
 
+var model = new TodoModel('react-todos');
+
+function ReRenderApp() {
+  ReactDOM.render(<TodoApp model={model}/>, document.getElementById("TodoAppDiv"));
+}
+
+model.subscribe(ReRenderApp);
+
 const TODOMVCRenderer: ReactSelectorTreeComponentRenderer = (node, depth, index) => {
-  var model = new TodoModel('react-todos');
-  return <TodoApp model={model} />;
+  return <div id="TodoAppDiv"> <TodoApp model={model} /> </div> ;
   // return <TestButton/>
   // return <Button>Button at index {index}</Button>;
 };
