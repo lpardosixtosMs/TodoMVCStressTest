@@ -27,7 +27,7 @@ ReactDOM.render(
     });
   }
 
-  async function runBenchmark() {
+  async function runBenchmarks() {
     AddStep.run();
     window.requestAnimationFrame(() => { });
     await waitAndResolve(0)
@@ -54,5 +54,5 @@ ReactDOM.render(
     resolveIfReady();
   });
 
-  element_promise.then(runBenchmark);
+  element_promise.then(runBenchmarks);
 
