@@ -1,9 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as classNames from 'classnames';
-import Router from 'director';
+// import director from 'director';
 import { ReactSelectorTreeComponentRenderer } from '../../shared/react/types';
 
+type Extension = {
+  id?: string;
+  title?: string;
+  completed?: boolean;
+};
 class AppUtils {
   public static ALL_TODOS: string = 'all';
   public static ACTIVE_TODOS: string = 'active';
@@ -28,13 +33,15 @@ class AppUtils {
     return count === 1 ? word : word + 's';
   }
 
-  public static extend(arg1: Todo, extension: any) {
+
+  public static extend(arg1: Todo, extension: Extension) {
     var newObj: Todo = arg1;
-    for (var key in extension) {
-      if (extension.hasOwnProperty(key)) {
-        Object.defineProperty(newObj, key, extension[key]);
-      }
-    }
+    if (extension.id)
+      newObj.id = extension.id;
+    if (extension.title)
+      newObj.title = extension.title;
+    if (extension.completed)
+      newObj.completed = extension.completed;
     return newObj;
   }
 }
@@ -191,8 +198,9 @@ class TodoItem extends React.Component<ItemProps, ItemState> {
     this.handleEdit = this.handleEdit.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.getInitialState = this.getInitialState.bind(this);
     this.shouldComponentUpdate = this.shouldComponentUpdate.bind(this);
+
+    this.state = { editText: this.props.todo.title };
   }
 
   handleSubmit() {
@@ -223,10 +231,6 @@ class TodoItem extends React.Component<ItemProps, ItemState> {
     if (this.props.editing) {
       this.setState({ editText: event.target.value });
     }
-  }
-
-  getInitialState() {
-    return { editText: this.props.todo.title };
   }
 
   /**
@@ -313,26 +317,18 @@ class TodoApp extends React.Component<AppProps, AppState> {
     this.save = this.save.bind(this);
     this.cancel = this.cancel.bind(this);
     this.clearCompleted = this.clearCompleted.bind(this);
-    this.handleNewTodoKeyDown = this.handleNewTodoKeyDown.bind(this);
 
     this.state = {
       nowShowing: AppUtils.ALL_TODOS,
       editing: null,
       newTodo: '',
     };
-  }
 
-  // getInitialState() {
-  //   return {
-  //     nowShowing: AppUtils.ALL_TODOS,
-  //     editing: null,
-  //     newTodo: ''
-  //   };
-  // }
+    this.props.model.subscribe(this.forceUpdate.bind(this));
+  }
 
   componentDidMount() {
     var setState = this.setState;
-    console.log('router starting');
     var router = Router({
       '/': setState.bind(this, {
         nowShowing: AppUtils.ALL_TODOS,
@@ -351,7 +347,6 @@ class TodoApp extends React.Component<AppProps, AppState> {
       }),
     });
     router.init('/');
-    console.log('router init');
   }
 
   handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -467,11 +462,8 @@ class TodoApp extends React.Component<AppProps, AppState> {
           <input
             className="new-todo"
             placeholder="What needs to be done?"
-            // value={'new TODO'}
             value={this.state.newTodo}
-            // onKeyDown={() => {}}
             onKeyDown={this.handleNewTodoKeyDown}
-            // onChange={() => {}}
             onChange={this.handleChange}
             autoFocus={true}
           />
@@ -493,14 +485,9 @@ class TestButton extends React.Component {
 
 var model = new TodoModel('react-todos');
 
-function ReRenderApp() {
-  ReactDOM.render(<TodoApp model={model}/>, document.getElementById("TodoAppDiv"));
-}
-
-model.subscribe(ReRenderApp);
-
 const TODOMVCRenderer: ReactSelectorTreeComponentRenderer = (node, depth, index) => {
-  return <div id="TodoAppDiv"> <TodoApp model={model} /> </div> ;
+  if (index == 0) return <div id="TodoAppDiv"> <TodoApp model={model} /> </div> ;
+  return <div/>;
   // return <TestButton/>
   // return <Button>Button at index {index}</Button>;
 };

@@ -5,6 +5,9 @@ import { FluentProvider, webLightTheme } from '@fluentui/react-components';
 import { ReactTest } from '../../../shared/react/ReactTest';
 import { getTestOptions } from '../../../shared/utils/testOptions';
 
+import "./index.css"
+import "./base.css"
+
 const { fixtureName, rendererName, r } = getTestOptions();
 document.title += ' | ' + r ?? rendererName;
 ReactDOM.render(
