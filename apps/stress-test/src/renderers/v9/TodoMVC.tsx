@@ -212,6 +212,9 @@ class TodoItem extends React.Component<ItemProps, ItemState> {
       this.props.onDestroy();
     }
   }
+  componentWillReceiveProps(props : ItemProps) {
+    this.forceUpdate();
+  }
 
   handleEdit() {
     this.props.onEdit();
