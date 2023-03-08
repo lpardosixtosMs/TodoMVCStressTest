@@ -7,8 +7,8 @@ import { getTestOptions } from '../../../shared/utils/testOptions';
 import { AddStep, CheckStep, DestroyStep } from '../../../shared/vanilla/BenchmarkSteps';
 // import { runSpeedometerTest } from '../../../shared/vanilla/SpeedometerRunner';
 
-import "./index.css"
-import "./base.css"
+import './index.css';
+import './base.css';
 
 const { fixtureName, rendererName, r } = getTestOptions();
 document.title += ' | ' + r ?? rendererName;
@@ -19,40 +19,46 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-  function waitAndResolve(secs : number) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve('resolved');
-      }, secs);
-    });
-  }
-
-  async function runBenchmarks() {
-    AddStep.run();
-    window.requestAnimationFrame(() => { });
-    await waitAndResolve(0)
-
-    CheckStep.run();
-    window.requestAnimationFrame(() => { });
-    await waitAndResolve(0)
-
-    DestroyStep.run();
-    window.requestAnimationFrame(() => { });
-  }
-
-  var element_promise = new Promise((resolve) => {
-    const resolveIfReady = () => {
-      const element = document.querySelector("#TodoAppDiv");
-      if (element) {
-        window.requestAnimationFrame(() => {
-          return resolve(element);
-        });
-      } else {
-        setTimeout(resolveIfReady, 50);
-      }
-    };
-    resolveIfReady();
+function waitAndResolve(secs: number) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('resolved');
+    }, secs);
   });
+}
 
-  element_promise.then(runBenchmarks);
+async function runBenchmarks() {
+  performance.mark(`speedometer-start`);
+  const syncStartTime = performance.now();
 
+  AddStep.run();
+  window.requestAnimationFrame(() => {});
+  await waitAndResolve(0);
+
+  CheckStep.run();
+  window.requestAnimationFrame(() => {});
+  await waitAndResolve(0);
+
+  DestroyStep.run();
+  window.requestAnimationFrame(() => {});
+
+  const syncEndTime = performance.now();
+  performance.mark(`speedometer-sync-end`);
+  performance.measure('stress', `speedometer-start`, `speedometer-sync-end`);
+}
+
+var element_promise = new Promise(resolve => {
+  const resolveIfReady = () => {
+    const element = document.querySelector('#TodoAppDiv');
+    if (element) {
+      window.requestAnimationFrame(() => {
+        return resolve(element);
+      });
+    } else {
+      setTimeout(resolveIfReady, 50);
+    }
+  };
+  resolveIfReady();
+});
+
+element_promise.then(runBenchmarks);

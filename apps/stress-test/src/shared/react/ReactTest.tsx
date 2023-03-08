@@ -8,6 +8,7 @@ import { TestMount } from './TestMount';
 import { TestRemoveAll } from './TestRemoveAll';
 import { TestReRenderAll } from './TestReRenderAll';
 import { TestAdd } from './TestAdd';
+import { TestSpeedometer } from './TestSpeedometer';
 
 type TestData = {
   tree?: TreeNode<RandomSelectorTreeNode>;
@@ -73,6 +74,10 @@ export const ReactTest: React.FC<ReactTestProps> = ({ target, fixtureName, rende
 
     case 'add':
       Test = TestAdd;
+      break;
+
+    case 'speedometer':
+      Test = TestSpeedometer;
       break;
 
     default:
