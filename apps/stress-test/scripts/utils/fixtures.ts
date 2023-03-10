@@ -21,18 +21,18 @@ const defaultFixtureOptions: DefaultFixtureOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   xs_1: {
     minBreadth: '1',
-    maxBreadth: '5',
+    maxBreadth: '1',
     minDepth: '1',
-    maxDepth: '5',
-    targetSize: '250',
+    maxDepth: '1',
+    targetSize: '1',
   },
   // eslint-disable-next-line @typescript-eslint/naming-convention
   xs_2: {
     minBreadth: '1',
-    maxBreadth: '5',
+    maxBreadth: '1',
     minDepth: '1',
-    maxDepth: '5',
-    targetSize: '250',
+    maxDepth: '1',
+    targetSize: '1',
     seed: '7032017',
   },
   // eslint-disable-next-line @typescript-eslint/naming-convention

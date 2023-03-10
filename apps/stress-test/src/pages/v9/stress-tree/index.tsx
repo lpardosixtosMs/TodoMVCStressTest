@@ -55,7 +55,7 @@ var element_promise = new Promise(resolve => {
         return resolve(element);
       });
     } else {
-      setTimeout(resolveIfReady, 50);
+      setTimeout(resolveIfReady, 2000);
     }
   };
   resolveIfReady();

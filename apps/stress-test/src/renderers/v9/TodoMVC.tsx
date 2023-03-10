@@ -487,11 +487,15 @@ class TestButton extends React.Component {
 }
 
 var model = new TodoModel('react-todos');
+var rendered_todo = false;
 
 const TODOMVCRenderer: ReactSelectorTreeComponentRenderer = (node, depth, index) => {
-  if (index == 0) return <div id="TodoAppDiv"> <TodoApp model={model} /> </div> ;
-  return <div/>;
-  // return <TestButton/>
+  if (index == 70 && !rendered_todo) {
+    rendered_todo = true;
+    return <div id="TodoAppDiv"> <TodoApp model={model} /> </div> ;
+  }
+  // return <div/>;
+  return <TestButton/>
   // return <Button>Button at index {index}</Button>;
 };
 
