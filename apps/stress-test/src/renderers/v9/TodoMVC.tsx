@@ -3,6 +3,7 @@ import { Header } from "./TodoMVC/header";
 import { Main } from "./TodoMVC/main";
 import { Footer } from "./TodoMVC/footer";
 import { ReactSelectorTreeComponentRenderer } from '../../shared/react/types';
+import "todomvc-app-css/index.css";
 
 import { todoReducer } from "./TodoMVC/reducer";
 import { HashRouter, Route, Routes } from "react-router-dom";
@@ -28,12 +29,12 @@ class TestButton extends React.Component {
   }
 }
 
-const TODOMVCRenderer: ReactSelectorTreeComponentRenderer = (node, depth, index) => {
-    if (index != 0) {
-      // rendered_todo = true;
-      return <TestButton/>
-      // return <div/> ;
-    }
+const TODOMVCRenderer = () => {
+    // if (index != 0) {
+    //   // rendered_todo = true;
+    //   return <TestButton/>
+    //   // return <div/> ;
+    // }
 
     return (
       <HashRouter>

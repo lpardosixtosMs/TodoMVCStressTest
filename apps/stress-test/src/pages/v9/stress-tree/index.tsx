@@ -7,9 +7,6 @@ import { getTestOptions } from '../../../shared/utils/testOptions';
 import { AddStep, CheckStep, DestroyStep } from '../../../shared/vanilla/BenchmarkSteps';
 // import { runSpeedometerTest } from '../../../shared/vanilla/SpeedometerRunner';
 
-import './index.css';
-import './base.css';
-
 const { fixtureName, rendererName, r } = getTestOptions();
 document.title += ' | ' + r ?? rendererName;
 ReactDOM.render(
