@@ -13,6 +13,6 @@
     "types": ["environment"],
     "outDir": "./dist"
   },
-  "include": ["src", "extra_types"],
+  "include": ["src"],
   "exclude": ["node_modules", "src/fixtures"]
 }

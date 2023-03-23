@@ -49,7 +49,7 @@ async function runBenchmarks() {
 
 var element_promise = new Promise(resolve => {
   const resolveIfReady = () => {
-    const element = document.querySelector('#TodoAppDiv');
+    const element = document.querySelector('.new-todo');
     if (element) {
       window.requestAnimationFrame(() => {
         return resolve(element);

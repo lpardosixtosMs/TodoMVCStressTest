@@ -1,7 +1,6 @@
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import pkg from 'webpack';
 // import * as Dotenv from 'dotenv-webpack';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { registerTsPaths, createPathAliasesConfig, rules } from '@fluentui/scripts-storybook';
@@ -11,7 +10,6 @@ import * as WebpackDevServer from 'webpack-dev-server';
 import { GriffelMode } from '../scripts/utils/types';
 
 const enabledReactProfiling = true;
-const { DefinePlugin } = pkg;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -82,10 +80,7 @@ const createConfig: WebpackConfigurationCreator = (_env, argv) => {
         },
       ],
     },
-    plugins: [new CleanWebpackPlugin(),
-              new DefinePlugin({
-                'process.env.NODE_DEBUG': JSON.stringify(false),
-      })],
+    plugins: [new CleanWebpackPlugin()],
     // [new CleanWebpackPlugin(), new Dotenv()],
 
     optimization: {
